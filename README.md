@@ -23,22 +23,25 @@ GJLibrary provide new looks and object oriented graphics as well as action handl
     
 ## Examples on Loading Network
 // CODE FOR LOADING A NNET FILE
+...
   public static void OpenNetwork() {
-		String link = GJFileLoader.OpenLoadChooser(null, main_frame);
-		if(link != null) {
+	String link = GJFileLoader.OpenLoadChooser(null, main_frame);
+	if(link != null) {
 			String netdata = GJFileLoader.LoadText(link)[0];
 			network = ConvNetwork.LoadData(netdata, null);
-		}
 	}
+  }
+...
   - This use GJFileLoader library to get the link of the NNET file and load the data, then using ConvNetwork.LoadData(netdata,null) function to generate the ConvNetwork Object with those data.
 // CODE FOR INITIALIZING A TRAINING DATA
-  TrainingData data = new TrainingData();
-	BufferedImage resize_image = GJColorProcess.ResizeImage(image,                        network.input_size, network.input_size);
+...
+  	TrainingData data = new TrainingData();
+	BufferedImage resize_image = GJColorProcess.ResizeImage(image, network.input_size, network.input_size);
 	data.processed_image = resize_image;
 	data.output_type = 1;
 	data.ConvertData2D();
 	float[] output = network.GetOutput(data.data2D);
-  //
+...
   - Initializing an empty TrainingData then setting the processed_image and output_type=1.
   - Using ConvertData2D() function to get the data2d with the given processed_image.
   - Get the output using network.GetOutput(data.data2D)
