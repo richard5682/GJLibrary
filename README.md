@@ -22,8 +22,9 @@ GJLibrary provide new looks and object oriented graphics as well as action handl
     - void TrainingData.ConvertData2D() - function for converting the proccess_image buffered image into array of data the NNET can process.
     
 ## Examples on Loading Network
-// CODE FOR LOADING A NNET FILE
+
 ```java
+  // CODE FOR LOADING A NNET FILE
   public static void OpenNetwork() {
 	String link = GJFileLoader.OpenLoadChooser(null, main_frame);
 	if(link != null) {
@@ -33,8 +34,9 @@ GJLibrary provide new looks and object oriented graphics as well as action handl
   }
 ```
   - This use GJFileLoader library to get the link of the NNET file and load the data, then using ConvNetwork.LoadData(netdata,null) function to generate the ConvNetwork Object with those data.
-// CODE FOR INITIALIZING A TRAINING DATA
+
 ```java
+	// CODE FOR INITIALIZING A TRAINING DATA
   	TrainingData data = new TrainingData();
 	BufferedImage resize_image = GJColorProcess.ResizeImage(image, network.input_size, network.input_size);
 	data.processed_image = resize_image;
@@ -45,3 +47,18 @@ GJLibrary provide new looks and object oriented graphics as well as action handl
   - Initializing an empty TrainingData then setting the processed_image and output_type=1.
   - Using ConvertData2D() function to get the data2d with the given processed_image.
   - Get the output using network.GetOutput(data.data2D)
+```java
+// CODE FOR PROCESSING THE OUTPUT
+	if(output[0]>0.5) {//LOOKING
+		if(paused) {
+			paused = false;
+			click();
+		}	
+	}else {//NOTLOOKING
+		if(!paused) {
+			paused = true;
+			click();
+		}
+	}
+```
+- Here since I only have 2 output and I the network configuration is in softmax therefore the combined output when we add them is equal to 1, therefore to get the highest output i just need to check if the output is greater than 0.5.
